@@ -121,6 +121,11 @@ app_license = "mit"
 # Document Events
 # ---------------
 # Hook on document methods and events
+doc_events = {
+    "Employee Checkin": {
+        "before_save": "gsh.gsh_kreatao.custom_script.employee_checkin.fetch_shift_assignment"
+    }
+}
 
 # doc_events = {
 # 	"*": {
@@ -227,3 +232,17 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+fixtures=[
+    {
+    	"doctype": "Custom Field",
+        "filters": [
+            [
+                "name",
+                "in",
+                [ 
+                    "Employee Checkin-custom_shift_assignment",
+                 ]
+            ]
+        ]
+    }
+]
