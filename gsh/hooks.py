@@ -25,6 +25,9 @@ app_license = "mit"
 # webform_include_css = {"doctype": "public/css/doctype.css"}
 
 # include js in page
+doctype_js = {
+    "Salary Slip": "public/js/salary_slip.js"
+}
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
@@ -124,6 +127,12 @@ app_license = "mit"
 doc_events = {
     "Employee Checkin": {
         "before_save": "gsh.gsh_kreatao.custom_script.employee_checkin.fetch_shift_assignment"
+    }
+}
+
+doc_events = {
+    "Attendance": {
+        "on_submit": "gsh.gsh_kreatao.custom_script.attendance.calculate_hours"
     }
 }
 
@@ -241,6 +250,16 @@ fixtures=[
                 "in",
                 [ 
                     "Employee Checkin-custom_shift_assignment",
+                    "Attendance-custom_over_time_hours",
+                    "Attendance-custom_late_entry_hours",
+                    "Shift Assignment-custom_holiday",
+                    "Attendance-custom_total_hours",
+                    "Attendance-custom_approved",
+                    "Attendance-custom_is_paid",
+                    "Attendance-custom_is_compensatory_leave",
+                    "Employee-custom_over_time_rate",
+                    "Employee-custom_late_entry_rate",
+                    
                  ]
             ]
         ]
