@@ -26,7 +26,9 @@ app_license = "mit"
 
 # include js in page
 doctype_js = {
-    "Salary Slip": "public/js/salary_slip.js"
+    "Salary Slip": "public/js/salary_slip.js",
+    "Payroll Entry": "public/js/payroll_entry.js",
+    "Shift Assignment": "public/js/shift_assignment.js"
 }
 # page_js = {"page" : "public/js/file.js"}
 
