@@ -28,7 +28,8 @@ app_license = "mit"
 doctype_js = {
     "Salary Slip": "public/js/salary_slip.js",
     "Payroll Entry": "public/js/payroll_entry.js",
-    "Shift Assignment": "public/js/shift_assignment.js"
+    "Shift Assignment": "public/js/shift_assignment.js",
+    "Attendance Request": "public/js/attendance_request.js"
 }
 # page_js = {"page" : "public/js/file.js"}
 
@@ -261,6 +262,7 @@ fixtures=[
                     "Attendance-custom_is_compensatory_leave",
                     "Employee-custom_over_time_rate",
                     "Employee-custom_late_entry_rate",
+                    "Attendance Request-custom_overtime_hours",
                     
                  ]
             ]
