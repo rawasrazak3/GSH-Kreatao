@@ -29,7 +29,8 @@ doctype_js = {
     "Salary Slip": "public/js/salary_slip.js",
     "Payroll Entry": "public/js/payroll_entry.js",
     "Shift Assignment": "public/js/shift_assignment.js",
-    "Attendance Request": "public/js/attendance_request.js"
+    "Attendance Request": "public/js/attendance_request.js",
+    "Compensatory Off": "public/js/co_l.js"
 }
 # page_js = {"page" : "public/js/file.js"}
 
@@ -136,6 +137,12 @@ doc_events = {
 doc_events = {
     "Attendance": {
         "on_submit": "gsh.gsh_kreatao.custom_script.attendance.calculate_hours"
+    }
+}
+
+doc_events = {
+    "Attendance": {
+        "on_update_after_submit": "gsh.gsh_kreatao.custom_script.attendance.create_compensatory_leave"
     }
 }
 
