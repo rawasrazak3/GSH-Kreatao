@@ -128,21 +128,15 @@ doctype_js = {
 # Document Events
 # ---------------
 # Hook on document methods and events
+
+
 doc_events = {
+    "Attendance": {
+        "on_submit": "gsh.gsh_kreatao.custom_script.attendance.calculate_hours",
+        "on_update_after_submit": "gsh.gsh_kreatao.custom_script.attendance.create_compensatory_leave"
+    },
     "Employee Checkin": {
         "before_save": "gsh.gsh_kreatao.custom_script.employee_checkin.fetch_shift_assignment"
-    }
-}
-
-doc_events = {
-    "Attendance": {
-        "on_submit": "gsh.gsh_kreatao.custom_script.attendance.calculate_hours"
-    }
-}
-
-doc_events = {
-    "Attendance": {
-        "on_update_after_submit": "gsh.gsh_kreatao.custom_script.attendance.create_compensatory_leave"
     }
 }
 
