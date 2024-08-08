@@ -3,19 +3,23 @@ import frappe
 from frappe import _
 
 def calculate_hours(doc, method):
-    if doc.working_hours and doc.custom_total_hours:
+    if doc.shift == "On Call Shift":
+        frappe.db.set_value("Attendance", doc.name, 'over_time_hours', doc.working_hours)
+    else:
 
-        working_hours = doc.working_hours
-        total_hours = doc.custom_total_hours
+        if doc.working_hours and doc.custom_total_hours:
 
-        difference = working_hours - total_hours
+            working_hours = doc.working_hours
+            total_hours = doc.custom_total_hours
 
-        if difference >= 0:
-            frappe.db.set_value("Attendance", doc.name, 'over_time_hours', float(difference))
-            frappe.db.set_value("Attendance", doc.name, 'late_entry_hours', 0.00)
-        else:
-            frappe.db.set_value("Attendance", doc.name, 'late_entry_hours', float(-difference))
-            frappe.db.set_value("Attendance", doc.name, 'over_time_hours', 0.00)
+            difference = working_hours - total_hours
+
+            if difference >= 0:
+                frappe.db.set_value("Attendance", doc.name, 'over_time_hours', float(difference))
+                frappe.db.set_value("Attendance", doc.name, 'late_entry_hours', 0.00)
+            else:
+                frappe.db.set_value("Attendance", doc.name, 'late_entry_hours', float(-difference))
+                frappe.db.set_value("Attendance", doc.name, 'over_time_hours', 0.00)
 
 
 def create_compensatory_leave(doc, method):
