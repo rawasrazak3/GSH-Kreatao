@@ -30,7 +30,7 @@ doctype_js = {
     "Payroll Entry": "public/js/payroll_entry.js",
     "Shift Assignment": "public/js/shift_assignment.js",
     "Attendance Request": "public/js/attendance_request.js",
-    "Compensatory Off": "public/js/co_l.js"
+    # "Compensatory Off": "public/js/co_l.js"
 }
 # page_js = {"page" : "public/js/file.js"}
 

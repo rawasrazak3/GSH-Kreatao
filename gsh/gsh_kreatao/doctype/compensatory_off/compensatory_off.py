@@ -15,13 +15,14 @@ class CompensatoryOff(Document):
 
 
 @frappe.whitelist()
-def create_leave_application(employee, from_date, to_date, leave_type):
+def create_leave_application(employee, from_date, to_date, leave_type, half_day):
     leave_application = frappe.get_doc({
         'doctype': 'Leave Application',
         'employee': employee,
         'from_date': from_date,
         'to_date': to_date,
-        'leave_type': leave_type
+        'leave_type': leave_type,
+        'half_day':half_day
     })
     leave_application.insert()
     frappe.db.commit()
@@ -40,7 +41,7 @@ def check_is_allocated(selected_entries):
     return None
 
 @frappe.whitelist()
-def check_and_create_leave_application(employee, from_date, to_date, leave_type):
+def check_and_create_leave_application(employee, from_date, to_date, leave_type, half_day):
     allocations = frappe.get_all('Leave Allocation', filters={
         'employee': employee,
         'leave_type': leave_type,
@@ -56,7 +57,7 @@ def check_and_create_leave_application(employee, from_date, to_date, leave_type)
     allocation.save()
     frappe.db.commit()
 
-    create_leave_application(employee, from_date, to_date, leave_type)
+    create_leave_application(employee, from_date, to_date, leave_type, half_day)
     return 'allocation_updated'
 
 @frappe.whitelist()

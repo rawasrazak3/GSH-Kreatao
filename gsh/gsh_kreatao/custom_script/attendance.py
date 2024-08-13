@@ -3,7 +3,7 @@ import frappe
 from frappe import _
 
 def calculate_hours(doc, method):
-    if doc.shift == "On Call Shift":
+    if doc.shift in ["On Call Shift", "On Call Day", "On Call Night"]:
         frappe.db.set_value("Attendance", doc.name, 'over_time_hours', doc.working_hours)
     else:
 
