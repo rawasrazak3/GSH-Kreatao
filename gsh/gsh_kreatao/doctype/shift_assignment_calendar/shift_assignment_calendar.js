@@ -31,7 +31,7 @@ frappe.ui.form.on('Shift Assignment Calendar', {
                         row.start_date = d.start_date;
                         row.end_date = d.end_date;
                         row.shift_type = d.shift_type;
-                        row.location = d.custom_location_name;
+                        row.location = d.custom_location;
                     });
                     frm.refresh_field('shift_assignment_calendar_table');
                 }
