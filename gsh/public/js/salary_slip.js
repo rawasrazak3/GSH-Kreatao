@@ -112,3 +112,67 @@ function calculate_overtime_and_late_entry(frm) {
         frm.refresh_field('deductions');
     });
 }
+
+frappe.ui.form.on('Salary Slip', {
+    before_save: function(frm) {
+        frm.trigger('calculate_saturday_allowance_deduction');
+    },
+    calculate_saturday_allowance_deduction: function(frm) {
+        if (frm.doc.start_date && frm.doc.end_date && frm.doc.employee) {
+            frappe.call({
+                method: 'frappe.client.get_list',
+                args: {
+                    doctype: 'Attendance',
+                    filters: {
+                        employee: frm.doc.employee,
+                        status: 'On Leave',
+                        leave_type: ['in', ['Annual Leave', 'Maternity Leave', 'Haj Leave', 'Marriage Leave', 'Parental Leave(Male Staff Only)',
+                        'Widow Muslim Leave(Omani Female)', 'Widow Non Muslim leave(Female Non Omani)']],
+                        attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]]
+                    },
+                    fields: ['name']
+                },
+                callback: function(r) {
+                    if (r.message) {
+                        let leave_days = r.message.length;
+                        console.log("Leave Days: ", leave_days);
+
+                        // Fetch the 'Saturday Fixed Overtime Allowance' from earnings
+                        let overtime_allowance = frm.doc.earnings.find(row => row.salary_component === 'Saturday Fixed Overtime Allowance');
+                        if (overtime_allowance) {
+                            let default_amount = overtime_allowance.default_amount;
+                            console.log("Default Amount: ", default_amount);
+
+                            let per_day_amount = default_amount / frm.doc.total_working_days;
+                            console.log("Per Day Amount: ", per_day_amount);
+
+                            let deduction_amount = per_day_amount * leave_days;
+                            console.log("Deduction Amount: ", deduction_amount);
+
+                            // Check if deduction component already exists
+                            let deduction_component = frm.doc.deductions.find(row => row.salary_component === 'Saturday Allowance Deduction');
+                            if (!deduction_component) {
+                                // Add new deduction
+                                let new_row = frm.add_child('deductions');
+                                new_row.salary_component = 'Saturday Allowance Deduction';
+                                new_row.amount = deduction_amount;
+                                console.log("New Deduction Added: ", deduction_amount);
+                            } else {
+                                // Update existing deduction
+                                deduction_component.amount = deduction_amount;
+                                console.log("Deduction Updated: ", deduction_amount);
+                            }
+                            frm.refresh_field('deductions');
+                        } else {
+                            console.log("Saturday Fixed Overtime Allowance not found in earnings.");
+                        }
+                    } else {
+                        console.log("No matching leave days found.");
+                    }
+                }
+            });
+        } else {
+            console.log("Required fields (start_date, end_date, employee) are missing.");
+        }
+    }
+});
