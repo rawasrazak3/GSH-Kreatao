@@ -28,6 +28,7 @@ frappe.ui.form.on('Shift Assignment Calendar', {
                         let row = frm.add_child('shift_assignment_calendar_table');
                         row.shift_assignment = d.name;
                         row.employee = d.employee;
+                        row.employee_name = d.employee_name;
                         row.start_date = d.start_date;
                         row.end_date = d.end_date;
                         row.shift_type = d.shift_type;

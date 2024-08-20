@@ -17,7 +17,7 @@ def fetch_shift_assignments(department, from_date, to_date):
             'start_date': ['>=', from_date],
             'end_date': ['<=', to_date],
         },
-        fields=['name', 'employee', 'start_date', 'end_date', 'shift_type', 'custom_location']
+        fields=['name', 'employee', 'start_date', 'end_date', 'shift_type', 'custom_location', 'employee_name']
     )
 
     return shift_assignments
