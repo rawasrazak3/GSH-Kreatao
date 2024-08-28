@@ -23,12 +23,19 @@ def calculate_hours(doc, method):
 
 
 def create_compensatory_leave(doc, method):
-    if doc.over_time_hours > 0 and doc.custom_is_compensatory_leave and doc.custom_approved:
-        compensatory_leave = frappe.get_doc({
-            "doctype": "Compensatory Off",
-            "employee": doc.employee,
-            "over_time_hours": doc.over_time_hours,
-            "attendance": doc.name
-        })
-        compensatory_leave.insert(ignore_permissions=True)
-        frappe.msgprint(f"Compensatory Off created for {doc.employee}.")
+    existing_entry = frappe.db.exists('Compensatory Off', {
+        'attendance': doc.name
+    })
+    
+    if existing_entry:
+        frappe.msgprint(f"A Compensatory Off entry already exists for attendance {doc.name}.")
+    else:
+        if doc.over_time_hours > 0 and doc.custom_is_compensatory_leave and doc.custom_approved:
+            compensatory_leave = frappe.get_doc({
+                "doctype": "Compensatory Off",
+                "employee": doc.employee,
+                "over_time_hours": doc.over_time_hours,
+                "attendance": doc.name
+            })
+            compensatory_leave.insert(ignore_permissions=True)
+            frappe.msgprint(f"Compensatory Off created for {doc.employee}.")
