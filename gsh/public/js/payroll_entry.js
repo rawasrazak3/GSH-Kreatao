@@ -197,10 +197,10 @@ function calculate_saturday_allowance_deduction(slip) {
                     attendance_date: ['between', [start_date, end_date]],
                     status: 'On Leave',
                     leave_type: ['in', ['Annual Leave', 'Maternity Leave', 'Haj Leave', 'Marriage Leave', 'Parental Leave(Male Staff Only)',
-                    'Widow Muslim Leave(Omani Female)', 'Widow Non Muslim leave(Female Non Omani)']],
-                    limit_page_length: 1000
+                    'Widow Muslim Leave(Omani Female)', 'Widow Non Muslim leave(Female Non Omani)']]
                 },
-                fields: ['name']
+                fields: ['name'],
+                limit_page_length: 1000
             }
         }).then(function(response) {
             let leave_days = response.message.length;
