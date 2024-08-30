@@ -219,6 +219,12 @@ frappe.ui.form.on('Salary Slip', {
     before_save: function(frm) {
         frm.trigger('calculate_saturday_allowance_deduction');
     },
+    before_insert: function(frm) {
+        frm.trigger('calculate_saturday_allowance_deduction');
+    },
+    on_submit: function(frm) {
+        frm.trigger('calculate_saturday_allowance_deduction');
+    },
     calculate_saturday_allowance_deduction: function(frm) {
         if (frm.doc.start_date && frm.doc.end_date && frm.doc.employee) {
             frappe.call({
