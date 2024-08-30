@@ -158,3 +158,85 @@ function calculate_overtime_and_late_entry(slip) {
         });
     });
 }
+
+frappe.ui.form.on('Payroll Entry', {
+    refresh: function(frm) {
+        // Add custom button to Payroll Entry form
+        frm.add_custom_button(__('Calculate Saturday Allowance Deduction'), function() {
+            // Trigger the calculation
+            frappe.call({
+                method: 'frappe.client.get_list',
+                args: {
+                    doctype: 'Salary Slip',
+                    filters: {
+                        payroll_entry: frm.doc.name
+                    },
+                    fields: ['name']
+                },
+                callback: function(r) {
+                    if (r.message) {
+                        r.message.forEach(slip => {
+                            frappe.call({
+                                method: 'frappe.client.get',
+                                args: {
+                                    doctype: 'Salary Slip',
+                                    name: slip.name
+                                },
+                                callback: function(slip_doc) {
+                                    calculate_saturday_allowance_deduction(slip_doc);
+                                }
+                            });
+                        });
+                    }
+                }
+            });
+        });
+    }
+});
+
+function calculate_saturday_allowance_deduction(slip_doc) {
+    frappe.call({
+        method: 'frappe.client.get_list',
+        args: {
+            doctype: 'Attendance',
+            filters: {
+                employee: slip_doc.employee,
+                status: 'Leave',
+                leave_type: ['in', ['Annual Leave', 'Maternity Leave', 'Hajj Leave']],
+                attendance_date: ['between', [slip_doc.start_date, slip_doc.end_date]]
+            },
+            fields: ['name']
+        },
+        callback: function(r) {
+            if (r.message) {
+                let leave_days = r.message.length;
+
+                let overtime_allowance = slip_doc.earnings.find(row => row.salary_component === 'Saturday Fixed Overtime Allowance');
+                if (overtime_allowance) {
+                    let per_day_amount = overtime_allowance.default_amount / slip_doc.total_working_days;
+                    let deduction_amount = per_day_amount * leave_days;
+
+                    let deduction_component = slip_doc.deductions.find(row => row.salary_component === 'Saturday Allowance Deduction');
+                    if (!deduction_component) {
+                        slip_doc.deductions.push({
+                            'salary_component': 'Saturday Allowance Deduction',
+                            'amount': deduction_amount
+                        });
+                    } else {
+                        deduction_component.amount = deduction_amount;
+                    }
+
+                    frappe.call({
+                        method: 'frappe.client.save',
+                        args: {
+                            doc: slip_doc
+                        },
+                        callback: function() {
+                            frappe.msgprint(__('Salary Slip updated with Saturday Allowance Deduction.'));
+                        }
+                    });
+                }
+            }
+        }
+    });
+}
