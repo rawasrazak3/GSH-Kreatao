@@ -209,8 +209,9 @@ function calculate_saturday_allowance_deduction(slip) {
                 filters: {
                     employee: employee,
                     attendance_date: ['between', [start_date, end_date]],
-                    status: 'Leave',
-                    leave_type: ['in', ['Annual Leave', 'Maternity Leave', 'Hajj Leave']]
+                    status: 'On Leave',
+                        leave_type: ['in', ['Annual Leave', 'Maternity Leave', 'Haj Leave', 'Marriage Leave', 'Parental Leave(Male Staff Only)',
+                        'Widow Muslim Leave(Omani Female)', 'Widow Non Muslim leave(Female Non Omani)']]
                 },
                 fields: ['name']
             }

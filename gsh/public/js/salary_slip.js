@@ -245,7 +245,6 @@ frappe.ui.form.on('Salary Slip', {
                         let leave_days = r.message.length;
                         console.log("Leave Days: ", leave_days);
 
-                        // Fetch the 'Saturday Fixed Overtime Allowance' from earnings
                         let overtime_allowance = frm.doc.earnings.find(row => row.salary_component === 'Saturday Fixed Overtime Allowance');
                         if (overtime_allowance) {
                             let default_amount = overtime_allowance.default_amount;
@@ -257,16 +256,13 @@ frappe.ui.form.on('Salary Slip', {
                             let deduction_amount = per_day_amount * leave_days;
                             console.log("Deduction Amount: ", deduction_amount);
 
-                            // Check if deduction component already exists
                             let deduction_component = frm.doc.deductions.find(row => row.salary_component === 'Saturday Allowance Deduction');
                             if (!deduction_component) {
-                                // Add new deduction
                                 let new_row = frm.add_child('deductions');
                                 new_row.salary_component = 'Saturday Allowance Deduction';
                                 new_row.amount = deduction_amount;
                                 console.log("New Deduction Added: ", deduction_amount);
                             } else {
-                                // Update existing deduction
                                 deduction_component.amount = deduction_amount;
                                 console.log("Deduction Updated: ", deduction_amount);
                             }
