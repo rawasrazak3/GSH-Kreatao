@@ -36,12 +36,9 @@ function get_overtime_and_late_entry_for_all_salary_slips(frm) {
 
 function calculate_overtime_and_late_entry(slip) {
     return new Promise(function(resolve, reject) {
-        let start_date = slip.start_date;
-        let end_date = slip.end_date;
-        let employee = slip.employee;
-        let salary_slip_name = slip.name;
+        let { start_date, end_date, employee, name: salary_slip_name } = slip;
 
-        let overtimePromise = frappe.call({
+        frappe.call({
             method: 'frappe.client.get_list',
             args: {
                 doctype: 'Attendance',
@@ -49,115 +46,98 @@ function calculate_overtime_and_late_entry(slip) {
                     employee: employee,
                     attendance_date: ['between', [start_date, end_date]],
                     custom_is_paid: 1,
-                    custom_approved: 1,
-                    over_time_hours: ['>', 0]
+                    custom_approved: 1
                 },
-                fields: ['over_time_hours']
-            }
-        }).then(function(response) {
-            let attendances = response.message;
-            let total_overtime = 0;
+                fields: ['over_time_hours', 'late_entry_hours']
+            },
+            callback: function(response) {
+                let attendances = response.message;
+                let total_overtime = 0;
+                let total_late_entry = 0;
 
-            let promises = attendances.map(function(attendance) {
-                return frappe.call({
-                    method: 'frappe.client.get_value',
-                    args: {
-                        doctype: 'Employee',
-                        filters: { name: employee },
-                        fieldname: 'custom_over_time_rate'
-                    }
-                }).then(function(res) {
-                    let over_time_rate = res.message.custom_over_time_rate || 0;
-                    total_overtime += (attendance.over_time_hours * over_time_rate);
-                });
-            });
-
-            return Promise.all(promises).then(() => total_overtime);
-        });
-
-        let lateEntryPromise = frappe.call({
-            method: 'frappe.client.get_list',
-            args: {
-                doctype: 'Attendance',
-                filters: {
-                    employee: employee,
-                    attendance_date: ['between', [start_date, end_date]],
-                    late_entry_hours: ['>', 0]
-                },
-                fields: ['late_entry_hours']
-            }
-        }).then(function(response) {
-            let attendances = response.message;
-            let total_late_entry = 0;
-
-            let promises = attendances.map(function(attendance) {
-                return frappe.call({
-                    method: 'frappe.client.get_value',
-                    args: {
-                        doctype: 'Employee',
-                        filters: { name: employee },
-                        fieldname: 'custom_late_entry_rate'
-                    }
-                }).then(function(res) {
-                    let late_entry_rate = res.message.custom_late_entry_rate || 0;
-                    total_late_entry += (attendance.late_entry_hours * late_entry_rate);
-                });
-            });
-
-            return Promise.all(promises).then(() => total_late_entry);
-        });
-
-        Promise.all([overtimePromise, lateEntryPromise]).then(function([total_overtime, total_late_entry]) {
-            frappe.call({
-                method: 'frappe.client.get',
-                args: {
-                    doctype: 'Salary Slip',
-                    name: salary_slip_name
-                },
-                callback: function(r) {
-                    let salary_slip = r.message;
-                    let earnings = salary_slip.earnings || [];
-                    let deductions = salary_slip.deductions || [];
-
-                    let overtime_entry = earnings.find(e => e.salary_component === 'Overtime');
-                    if (overtime_entry) {
-                        overtime_entry.amount = total_overtime;
-                    } else {
-                        earnings.push({
-                            salary_component: 'Overtime',
-                            amount: total_overtime
+                let promises = attendances.map(function(attendance) {
+                    if (attendance.over_time_hours > 0 && attendance.late_entry_hours === 0) {
+                        return frappe.call({
+                            method: 'frappe.client.get_value',
+                            args: {
+                                doctype: 'Employee',
+                                filters: { name: employee },
+                                fieldname: 'custom_over_time_rate'
+                            }
+                        }).then(function(res) {
+                            let over_time_rate = res.message.custom_over_time_rate || 0;
+                            total_overtime += (attendance.over_time_hours * over_time_rate);
+                        });
+                    } else if (attendance.late_entry_hours > 0 && attendance.over_time_hours === 0) {
+                        return frappe.call({
+                            method: 'frappe.client.get_value',
+                            args: {
+                                doctype: 'Employee',
+                                filters: { name: employee },
+                                fieldname: 'custom_late_entry_rate'
+                            }
+                        }).then(function(res) {
+                            let late_entry_rate = res.message.custom_late_entry_rate || 0;
+                            total_late_entry += (attendance.late_entry_hours * late_entry_rate);
                         });
                     }
+                    return Promise.resolve();
+                });
 
-                    let late_hours_entry = deductions.find(d => d.salary_component === 'Late Hours');
-                    if (late_hours_entry) {
-                        late_hours_entry.amount = total_late_entry;
-                    } else {
-                        deductions.push({
-                            salary_component: 'Late Hours',
-                            amount: total_late_entry
-                        });
-                    }
-
+                Promise.all(promises).then(function() {
                     frappe.call({
-                        method: 'frappe.client.set_value',
+                        method: 'frappe.client.get',
                         args: {
                             doctype: 'Salary Slip',
-                            name: salary_slip_name,
-                            fieldname: {
-                                earnings: earnings,
-                                deductions: deductions
-                            }
+                            name: salary_slip_name
                         },
-                        callback: function() {
-                            resolve();
+                        callback: function(r) {
+                            let salary_slip = r.message;
+                            let earnings = salary_slip.earnings || [];
+                            let deductions = salary_slip.deductions || [];
+
+                            let overtime_entry = earnings.find(e => e.salary_component === 'Overtime');
+                            if (overtime_entry) {
+                                overtime_entry.amount = total_overtime;
+                            } else {
+                                earnings.push({
+                                    salary_component: 'Overtime',
+                                    amount: total_overtime
+                                });
+                            }
+
+                            let late_hours_entry = deductions.find(d => d.salary_component === 'Late Hours');
+                            if (late_hours_entry) {
+                                late_hours_entry.amount = total_late_entry;
+                            } else {
+                                deductions.push({
+                                    salary_component: 'Late Hours',
+                                    amount: total_late_entry
+                                });
+                            }
+
+                            frappe.call({
+                                method: 'frappe.client.set_value',
+                                args: {
+                                    doctype: 'Salary Slip',
+                                    name: salary_slip_name,
+                                    fieldname: {
+                                        earnings: earnings,
+                                        deductions: deductions
+                                    }
+                                },
+                                callback: function() {
+                                    resolve();
+                                }
+                            });
                         }
                     });
-                }
-            });
+                });
+            }
         });
     });
 }
+
 
 frappe.ui.form.on('Payroll Entry', {
     refresh: function(frm) {
@@ -178,21 +158,27 @@ function calculate_saturday_allowance_for_all_salary_slips(frm) {
                 payroll_entry: payroll_entry,
                 docstatus: 0
             },
-            fields: ['name', 'employee', 'start_date', 'end_date']
+            fields: ['name', 'employee', 'start_date', 'end_date'],
+            limit_page_length: 1000 
         },
         callback: function(response) {
             let salary_slips = response.message;
+            console.log("Total Employees: ", response.message.length);
 
-            let promises = salary_slips.map(function(slip) {
-                return calculate_saturday_allowance_deduction(slip);
-            });
-
-            Promise.all(promises).then(function() {
-                frappe.msgprint(__('Saturday Allowance Deduction has been updated for all salary slips.'));
-                frm.reload_doc();
-            });
+            process_salary_slips_sequentially(salary_slips, 0, frm);
         }
     });
+}
+
+function process_salary_slips_sequentially(salary_slips, index, frm) {
+    if (index < salary_slips.length) {
+        calculate_saturday_allowance_deduction(salary_slips[index]).then(function() {
+            process_salary_slips_sequentially(salary_slips, index + 1, frm);
+        });
+    } else {
+        frappe.msgprint(__('Saturday Allowance Deduction has been updated for all salary slips.'));
+        frm.reload_doc();
+    }
 }
 
 function calculate_saturday_allowance_deduction(slip) {
@@ -210,8 +196,9 @@ function calculate_saturday_allowance_deduction(slip) {
                     employee: employee,
                     attendance_date: ['between', [start_date, end_date]],
                     status: 'On Leave',
-                        leave_type: ['in', ['Annual Leave', 'Maternity Leave', 'Haj Leave', 'Marriage Leave', 'Parental Leave(Male Staff Only)',
-                        'Widow Muslim Leave(Omani Female)', 'Widow Non Muslim leave(Female Non Omani)']]
+                    leave_type: ['in', ['Annual Leave', 'Maternity Leave', 'Haj Leave', 'Marriage Leave', 'Parental Leave(Male Staff Only)',
+                    'Widow Muslim Leave(Omani Female)', 'Widow Non Muslim leave(Female Non Omani)']],
+                    limit_page_length: 1000
                 },
                 fields: ['name']
             }

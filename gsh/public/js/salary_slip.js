@@ -236,7 +236,8 @@ frappe.ui.form.on('Salary Slip', {
                         status: 'On Leave',
                         leave_type: ['in', ['Annual Leave', 'Maternity Leave', 'Haj Leave', 'Marriage Leave', 'Parental Leave(Male Staff Only)',
                         'Widow Muslim Leave(Omani Female)', 'Widow Non Muslim leave(Female Non Omani)']],
-                        attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]]
+                        attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]],
+                        limit_page_length: 1000
                     },
                     fields: ['name']
                 },
