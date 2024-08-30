@@ -161,83 +161,111 @@ function calculate_overtime_and_late_entry(slip) {
 
 frappe.ui.form.on('Payroll Entry', {
     refresh: function(frm) {
-        // Add custom button to Payroll Entry form
         frm.add_custom_button(__('Calculate Saturday Allowance Deduction'), function() {
-            // Trigger the calculation
-            frappe.call({
-                method: 'frappe.client.get_list',
-                args: {
-                    doctype: 'Salary Slip',
-                    filters: {
-                        payroll_entry: frm.doc.name
-                    },
-                    fields: ['name']
-                },
-                callback: function(r) {
-                    if (r.message) {
-                        r.message.forEach(slip => {
-                            frappe.call({
-                                method: 'frappe.client.get',
-                                args: {
-                                    doctype: 'Salary Slip',
-                                    name: slip.name
-                                },
-                                callback: function(slip_doc) {
-                                    calculate_saturday_allowance_deduction(slip_doc);
-                                }
-                            });
-                        });
-                    }
-                }
-            });
+            calculate_saturday_allowance_for_all_salary_slips(frm);
         });
     }
 });
 
-function calculate_saturday_allowance_deduction(slip_doc) {
+function calculate_saturday_allowance_for_all_salary_slips(frm) {
+    let payroll_entry = frm.doc.name;
+
     frappe.call({
         method: 'frappe.client.get_list',
         args: {
-            doctype: 'Attendance',
+            doctype: 'Salary Slip',
             filters: {
-                employee: frm.doc.employee,
-                status: 'On Leave',
-                leave_type: ['in', ['Annual Leave', 'Maternity Leave', 'Haj Leave', 'Marriage Leave', 'Parental Leave(Male Staff Only)',
-                'Widow Muslim Leave(Omani Female)', 'Widow Non Muslim leave(Female Non Omani)']],
-                attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]]
+                payroll_entry: payroll_entry,
+                docstatus: 0
             },
-            fields: ['name']
+            fields: ['name', 'employee', 'start_date', 'end_date']
         },
-        callback: function(r) {
-            if (r.message) {
-                let leave_days = r.message.length;
+        callback: function(response) {
+            let salary_slips = response.message;
 
-                let overtime_allowance = slip_doc.earnings.find(row => row.salary_component === 'Saturday Fixed Overtime Allowance');
-                if (overtime_allowance) {
-                    let per_day_amount = overtime_allowance.default_amount / slip_doc.total_working_days;
-                    let deduction_amount = per_day_amount * leave_days;
+            let promises = salary_slips.map(function(slip) {
+                return calculate_saturday_allowance_deduction(slip);
+            });
 
-                    let deduction_component = slip_doc.deductions.find(row => row.salary_component === 'Saturday Allowance Deduction');
-                    if (!deduction_component) {
-                        slip_doc.deductions.push({
-                            'salary_component': 'Saturday Allowance Deduction',
-                            'amount': deduction_amount
-                        });
-                    } else {
-                        deduction_component.amount = deduction_amount;
-                    }
-
-                    frappe.call({
-                        method: 'frappe.client.save',
-                        args: {
-                            doc: slip_doc
-                        },
-                        callback: function() {
-                            frappe.msgprint(__('Salary Slip updated with Saturday Allowance Deduction.'));
-                        }
-                    });
-                }
-            }
+            Promise.all(promises).then(function() {
+                frappe.msgprint(__('Saturday Allowance Deduction has been updated for all salary slips.'));
+                frm.reload_doc();
+            });
         }
+    });
+}
+
+function calculate_saturday_allowance_deduction(slip) {
+    return new Promise(function(resolve, reject) {
+        let start_date = slip.start_date;
+        let end_date = slip.end_date;
+        let employee = slip.employee;
+        let salary_slip_name = slip.name;
+
+        frappe.call({
+            method: 'frappe.client.get_list',
+            args: {
+                doctype: 'Attendance',
+                filters: {
+                    employee: employee,
+                    attendance_date: ['between', [start_date, end_date]],
+                    status: 'Leave',
+                    leave_type: ['in', ['Annual Leave', 'Maternity Leave', 'Hajj Leave']]
+                },
+                fields: ['name']
+            }
+        }).then(function(response) {
+            let leave_days = response.message.length;
+
+            if (leave_days > 0) {
+                frappe.call({
+                    method: 'frappe.client.get',
+                    args: {
+                        doctype: 'Salary Slip',
+                        name: salary_slip_name
+                    },
+                    callback: function(r) {
+                        let salary_slip = r.message;
+                        let earnings = salary_slip.earnings || [];
+                        let deductions = salary_slip.deductions || [];
+                        let total_working_days = salary_slip.total_working_days;
+
+                        let overtime_allowance = earnings.find(e => e.salary_component === 'Saturday Fixed Overtime Allowance');
+                        if (overtime_allowance) {
+                            let per_day_amount = overtime_allowance.default_amount / total_working_days;
+                            let deduction_amount = per_day_amount * leave_days;
+
+                            let deduction_entry = deductions.find(d => d.salary_component === 'Saturday Allowance Deduction');
+                            if (deduction_entry) {
+                                deduction_entry.amount = deduction_amount;
+                            } else {
+                                deductions.push({
+                                    salary_component: 'Saturday Allowance Deduction',
+                                    amount: deduction_amount
+                                });
+                            }
+
+                            frappe.call({
+                                method: 'frappe.client.set_value',
+                                args: {
+                                    doctype: 'Salary Slip',
+                                    name: salary_slip_name,
+                                    fieldname: {
+                                        deductions: deductions
+                                    }
+                                },
+                                callback: function() {
+                                    resolve();
+                                }
+                            });
+                        } else {
+                            resolve();
+                        }
+                    }
+                });
+            } else {
+                resolve();
+            }
+        });
     });
 }
