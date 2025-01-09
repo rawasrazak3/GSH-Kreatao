@@ -6,12 +6,17 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "employee_id_number",
+  "employee_name",
+  "reporting_in_capacity",
   "time_and_date_of_incident",
   "severity_of_incident",
   "clinical_incident_related_to",
+  "clinical_incident_related_description",
   "column_break_vpkg",
   "incident_related_to",
   "type_of_incident",
+  "type_of_incident_description",
   "naming_series",
   "section_break_spiz",
   "text1",
@@ -22,11 +27,10 @@
   "section_break_zlbo",
   "was_it_notified",
   "other_person_involved",
-  "reporting_in_capacity",
   "column_break_mxud",
   "was_direct_supervisor",
   "full_name_of_reporting_person",
-  "employee_id_number"
+  "amended_from"
  ],
  "fields": [
   {
@@ -107,8 +111,9 @@
   },
   {
    "fieldname": "was_it_notified",
-   "fieldtype": "Data",
-   "label": "Was next of kin / guardian / patient notified?"
+   "fieldtype": "Select",
+   "label": "Was next of kin / guardian / patient notified?",
+   "options": "\nYes\nNo"
   },
   {
    "fieldname": "other_person_involved",
@@ -116,9 +121,11 @@
    "label": "Other persons involved"
   },
   {
+   "fetch_from": "employee_id_number.designation",
    "fieldname": "reporting_in_capacity",
-   "fieldtype": "Data",
-   "label": "Reporting in capacity of a ( Designation)"
+   "fieldtype": "Link",
+   "label": "Reporting in capacity of a ( Designation)",
+   "options": "Designation"
   },
   {
    "fieldname": "column_break_mxud",
@@ -126,8 +133,9 @@
   },
   {
    "fieldname": "was_direct_supervisor",
-   "fieldtype": "Data",
-   "label": "Was Direct Supervisor and relevant medical staff notified? "
+   "fieldtype": "Select",
+   "label": "Was Direct Supervisor and relevant medical staff notified? ",
+   "options": "\nYes\nNo"
   },
   {
    "fieldname": "full_name_of_reporting_person",
@@ -136,13 +144,44 @@
   },
   {
    "fieldname": "employee_id_number",
+   "fieldtype": "Link",
+   "label": "Employee ID number",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Incident Report Form",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "employee_id_number.employee_name",
+   "fieldname": "employee_name",
    "fieldtype": "Data",
-   "label": "Employee ID number"
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "type_of_incident.description",
+   "fieldname": "type_of_incident_description",
+   "fieldtype": "Small Text",
+   "label": "Type of Incident Description"
+  },
+  {
+   "fetch_from": "clinical_incident_related_to.description",
+   "fieldname": "clinical_incident_related_description",
+   "fieldtype": "Small Text",
+   "label": "Clinical Incident related Description"
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2024-07-24 09:48:01.641567",
+ "modified": "2024-09-28 10:37:12.625898",
  "modified_by": "Administrator",
  "module": "CAPA",
  "name": "Incident Report Form",
@@ -164,5 +203,8 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
 }

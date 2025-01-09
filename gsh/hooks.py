@@ -137,6 +137,14 @@ doc_events = {
     },
     "Employee Checkin": {
         "before_save": "gsh.gsh_kreatao.custom_script.employee_checkin.fetch_shift_assignment"
+    },
+    "Leave Application": {
+        "before_save": "gsh.gsh_kreatao.custom_script.leave_application.update_custom_approval_fields",
+        "before_submit": "gsh.gsh_kreatao.custom_script.leave_application.update_custom_approval_approved"
+    },
+    "Loan Application": {
+        "before_save": "gsh.gsh_kreatao.custom_script.loan_application.update_custom_approval_fields",
+        "before_submit": "gsh.gsh_kreatao.custom_script.loan_application.update_custom_approval_approved"
     }
 }
 

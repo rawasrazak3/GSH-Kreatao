@@ -1,33 +1,27 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:clinical_incident",
- "creation": "2024-07-24 09:44:23.743052",
+ "autoname": "field:intervention_done",
+ "creation": "2024-09-30 15:04:58.372530",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "clinical_incident",
-  "description"
+  "intervention_done"
  ],
  "fields": [
   {
-   "fieldname": "clinical_incident",
+   "fieldname": "intervention_done",
    "fieldtype": "Data",
-   "label": "Clinical Incident related to",
+   "label": "Intervention done",
    "unique": 1
-  },
-  {
-   "fieldname": "description",
-   "fieldtype": "Small Text",
-   "label": "Description"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-27 16:18:53.978391",
+ "modified": "2024-09-30 15:05:18.535054",
  "modified_by": "Administrator",
  "module": "CAPA",
- "name": "Clinical Incident",
+ "name": "Intervention done",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
