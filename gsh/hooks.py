@@ -163,6 +163,9 @@ scheduler_events = {
     "cron": {
         "0 15 * * *": [
             "gsh.gsh_kreatao.custom_script.mark_attendance.schedule_mark_attendance"
+        ],
+        "0 18 * * *": [
+            "gsh.gsh_kreatao.custom_script.mark_attendance.schedule_mark_attendances"
         ]
     }
 }
