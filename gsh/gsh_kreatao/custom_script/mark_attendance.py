@@ -11,8 +11,9 @@ def mark_attendance_for_shift_assignments():
         "Shift Assignment",
         filters={
             "shift_type": ["in", shift_types],
-            "start_date": today(),
-            "end_date": today()
+            "start_date": ["<=", today()],  # start_date should be before or equal to today
+            "end_date": [">=", today()],
+            "docstatus": 1
         },
         fields=["employee","shift_type"]
     )
