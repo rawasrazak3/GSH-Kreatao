@@ -3,7 +3,7 @@ from frappe.utils import today
 
 def mark_attendance_for_shift_assignments():
     shift_types = [
-        "Weekly Off", "Public Holiday", "On Call day", "On Call night", "On Call shift"
+        "Weekly Off", "Public Holiday", "On Call Day", "On Call Night", "On Call Shift"
     ]
     
     # Get shift assignments where start_date and end_date match today
@@ -33,10 +33,14 @@ def mark_attendance_for_shift_assignments():
                 "shift": assignment.shift_type
             })
             attendance.insert(ignore_permissions=True)
-            attendance.submit()
+            attendance.save()
             frappe.db.commit()
             
             frappe.logger().info(f"Marked attendance as Present for Employee: {assignment.employee}")
 
 def schedule_mark_attendance():
     mark_attendance_for_shift_assignments()
+
+def schedule_mark_attendances():
+    mark_attendance_for_shift_assignments()
+
