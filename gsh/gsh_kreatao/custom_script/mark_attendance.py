@@ -34,7 +34,7 @@ def mark_attendance_for_shift_assignments():
                 "shift": assignment.shift_type
             })
             attendance.insert(ignore_permissions=True)
-            attendance.save()
+            attendance.submit()
             frappe.db.commit()
             
             frappe.logger().info(f"Marked attendance as Present for Employee: {assignment.employee}")
