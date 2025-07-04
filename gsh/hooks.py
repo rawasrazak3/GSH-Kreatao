@@ -145,6 +145,9 @@ doc_events = {
     "Loan Application": {
         "before_save": "gsh.gsh_kreatao.custom_script.loan_application.update_custom_approval_fields",
         "before_submit": "gsh.gsh_kreatao.custom_script.loan_application.update_custom_approval_approved"
+    },
+    "Shift Assignment": {
+        "after_insert": "gsh.gsh_kreatao.custom_script.shift_assignment.add_shift_assignment_date_to_holiday_list"
     }
 }
 
