@@ -148,6 +148,9 @@ doc_events = {
     },
     "Shift Assignment": {
         "after_insert": "gsh.gsh_kreatao.custom_script.shift_assignment.add_shift_assignment_date_to_holiday_list"
+    },
+    "Holiday List": {
+        "validate": "gsh.gsh_kreatao.custom_script.holiday_list.update_other_holiday_lists"
     }
 }
 
