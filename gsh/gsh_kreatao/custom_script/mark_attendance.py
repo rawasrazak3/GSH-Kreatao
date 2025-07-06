@@ -3,7 +3,7 @@ from frappe.utils import today
 
 def mark_attendance_for_shift_assignments():
     shift_types = [
-        "Weekly Off", "Public Holiday", "On Call Day", "On Call Night", "On Call Shift"
+        "Weekly Off", "Public Holiday"
     ]
     
     # Get shift assignments where start_date and end_date match today
