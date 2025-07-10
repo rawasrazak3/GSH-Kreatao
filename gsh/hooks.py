@@ -147,7 +147,8 @@ doc_events = {
         "before_submit": "gsh.gsh_kreatao.custom_script.loan_application.update_custom_approval_approved"
     },
     "Shift Assignment": {
-        "after_insert": "gsh.gsh_kreatao.custom_script.shift_assignment.add_shift_assignment_date_to_holiday_list"
+        "after_insert": "gsh.gsh_kreatao.custom_script.shift_assignment.add_shift_assignment_date_to_holiday_list",
+        "on_cancel": "gsh.gsh_kreatao.custom_script.shift_assignment.remove_shift_assignment_dates_from_holiday_list"
     },
     "Holiday List": {
         "validate": "gsh.gsh_kreatao.custom_script.holiday_list.update_other_holiday_lists"
