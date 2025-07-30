@@ -142,7 +142,7 @@ function calculate_overtime_and_late_entry(slip) {
 
 frappe.ui.form.on('Payroll Entry', {
     refresh: function(frm) {
-        frm.add_custom_button(__('Calculate Saturday Allowance Deduction'), function() {
+        frm.add_custom_button(__('Get Overtime Allowance Deduction'), function() {
             calculate_saturday_allowance_for_all_salary_slips(frm);
         });
     }
@@ -177,7 +177,7 @@ function process_salary_slips_sequentially(salary_slips, index, frm) {
             process_salary_slips_sequentially(salary_slips, index + 1, frm);
         });
     } else {
-        frappe.msgprint(__('Saturday Allowance Deduction has been updated for all salary slips.'));
+        frappe.msgprint(__('Overtime Deduction has been updated for all salary slips.'));
         frm.reload_doc();
     }
 }
