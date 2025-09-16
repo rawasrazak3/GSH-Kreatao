@@ -97,3 +97,63 @@ def remove_shift_assignment_dates_from_holiday_list(doc, method):
     ]
 
     holiday_list.save()
+
+def update_shift_assignment_dates_in_holiday_list(doc, method):
+    if doc.shift_type not in SHIFT_TYPES_TO_REMOVE:  # only process these shift types
+        return
+
+    employee = frappe.get_doc("Employee", doc.employee)
+    if not employee.holiday_list:
+        return
+
+    holiday_list = frappe.get_doc("Holiday List", employee.holiday_list)
+
+    # Fetch the old doc values (before update)
+    old_doc = doc.get_doc_before_save()
+    if not old_doc:
+        return  # nothing to compare if first save
+
+    old_start = getdate(old_doc.start_date)
+    old_end = getdate(old_doc.end_date or old_doc.start_date)
+    new_start = getdate(doc.start_date)
+    new_end = getdate(doc.end_date or doc.start_date)
+
+    # --------------------------
+    # 1. Handle removed dates
+    # --------------------------
+    old_dates = set()
+    current = old_start
+    while current <= old_end:
+        old_dates.add(current)
+        current += timedelta(days=1)
+
+    new_dates = set()
+    current = new_start
+    while current <= new_end:
+        new_dates.add(current)
+        current += timedelta(days=1)
+
+    dates_to_remove = old_dates - new_dates  # existed before, but not now
+    if dates_to_remove:
+        holiday_list.holidays = [
+            h for h in holiday_list.holidays
+            if not (h.holiday_date in dates_to_remove and h.description == doc.shift_type)
+        ]
+
+    # --------------------------
+    # 2. Handle added dates
+    # --------------------------
+    existing_dates = {h.holiday_date for h in holiday_list.holidays}
+    dates_to_add = new_dates - old_dates
+    for d in dates_to_add:
+        if d not in existing_dates:
+            entry = {
+                "holiday_date": d,
+                "description": f"{doc.shift_type}"
+            }
+            if doc.shift_type in SHIFT_TYPES_WEEKLY_OFF:
+                entry["weekly_off"] = 1
+            holiday_list.append("holidays", entry)
+
+    # Save updates
+    holiday_list.save()
