@@ -10,6 +10,7 @@
   "employee_name",
   "designation",
   "column_break_lyxu",
+  "posting_date",
   "nationality",
   "passport_number",
   "residence_id",
@@ -118,12 +119,18 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-16 16:23:18.153367",
+ "modified": "2025-09-17 15:57:02.100611",
  "modified_by": "Administrator",
  "module": "GSH Kreatao",
  "name": "Employment Certificate",
