@@ -21,7 +21,8 @@
   "section_break_mmyy",
   "content_2",
   "section_break_dsvq",
-  "naming_series"
+  "naming_series",
+  "amended_from"
  ],
  "fields": [
   {
@@ -116,12 +117,23 @@
    "fieldname": "salary",
    "fieldtype": "Currency",
    "label": "Salary"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Salary Transfer Certificate",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2025-12-30 09:44:32.256745",
+ "modified": "2025-12-30 15:56:00.664654",
  "modified_by": "Administrator",
  "module": "GSH Kreatao",
  "name": "Salary Transfer Certificate",
@@ -138,6 +150,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

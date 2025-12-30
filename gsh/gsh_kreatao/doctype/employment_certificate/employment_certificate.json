@@ -2,32 +2,64 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2025-09-16 13:51:54.432046",
+ "creation": "2025-12-30 12:12:38.653093",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "health_facility",
+  "sponsers_name",
+  "location_of_institution",
+  "state",
+  "section_break_eumw",
   "employee",
   "employee_name",
   "designation",
-  "column_break_lyxu",
-  "posting_date",
   "nationality",
   "passport_number",
-  "residence_id",
-  "section_break_udra",
-  "moh_oman_licence",
-  "tenure",
-  "staff_number",
-  "naming_series",
-  "section_break_hvqs",
+  "start_date",
+  "end_date",
+  "section_break_wmsv",
   "content_1",
+  "section_break_xdun",
   "content_2",
+  "section_break_kyzw",
+  "naming_series",
   "amended_from"
  ],
  "fields": [
   {
+   "fieldname": "health_facility",
+   "fieldtype": "Link",
+   "label": "Name of Health Facility",
+   "options": "Company"
+  },
+  {
+   "default": "Gulf Integrated Medical Services Company LLC",
+   "fieldname": "sponsers_name",
+   "fieldtype": "Data",
+   "label": "Sponser's Name"
+  },
+  {
+   "default": "Muscat",
+   "fieldname": "location_of_institution",
+   "fieldtype": "Data",
+   "label": "Location of the institution/governorate"
+  },
+  {
+   "default": "Matrah",
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State"
+  },
+  {
+   "fieldname": "section_break_eumw",
+   "fieldtype": "Section Break"
+  },
+  {
    "fieldname": "employee",
    "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_standard_filter": 1,
    "label": "Employee",
    "options": "Employee"
   },
@@ -35,17 +67,9 @@
    "fetch_from": "employee.employee_name",
    "fieldname": "employee_name",
    "fieldtype": "Data",
-   "label": "Employee Name"
-  },
-  {
-   "fetch_from": "employee.designation",
-   "fieldname": "designation",
-   "fieldtype": "Data",
-   "label": "Designation"
-  },
-  {
-   "fieldname": "column_break_lyxu",
-   "fieldtype": "Column Break"
+   "in_global_search": 1,
+   "in_standard_filter": 1,
+   "label": "Name"
   },
   {
    "fetch_from": "employee.custom_country_of_origin",
@@ -60,55 +84,46 @@
    "label": "Passport Number"
   },
   {
-   "fetch_from": "employee.custom_civil_id_number",
-   "fieldname": "residence_id",
-   "fieldtype": "Data",
-   "label": "Residence ID"
-  },
-  {
-   "fieldname": "section_break_udra",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fetch_from": "employee.custom_moh_licence_number",
-   "fieldname": "moh_oman_licence",
-   "fieldtype": "Data",
-   "label": "MOH Oman licence"
-  },
-  {
    "fetch_from": "employee.date_of_joining",
-   "fieldname": "tenure",
+   "fieldname": "start_date",
    "fieldtype": "Date",
-   "label": "Tenure"
+   "label": "Start Date"
   },
   {
-   "fetch_from": "employee.attendance_device_id",
-   "fieldname": "staff_number",
-   "fieldtype": "Data",
-   "label": "Staff Number"
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
   },
   {
-   "fieldname": "naming_series",
-   "fieldtype": "Data",
-   "hidden": 1,
-   "label": "Naming Series",
-   "options": "E_C-.YY.-.####.",
-   "print_hide": 1,
-   "report_hide": 1
-  },
-  {
-   "fieldname": "section_break_hvqs",
+   "fieldname": "section_break_wmsv",
    "fieldtype": "Section Break"
   },
   {
    "fieldname": "content_1",
    "fieldtype": "Text Editor",
-   "label": "Content 1"
+   "label": "Content1"
+  },
+  {
+   "fieldname": "section_break_xdun",
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "content_2",
    "fieldtype": "Text Editor",
-   "label": "Content 2"
+   "label": "Content2"
+  },
+  {
+   "fieldname": "section_break_kyzw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "HMIS/.YYYY/HR/.###",
+   "print_hide": 1,
+   "report_hide": 1
   },
   {
    "fieldname": "amended_from",
@@ -121,16 +136,18 @@
    "search_index": 1
   },
   {
-   "default": "Today",
-   "fieldname": "posting_date",
-   "fieldtype": "Date",
-   "label": "Posting Date"
+   "fetch_from": "employee.designation",
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Designation"
   }
  ],
+ "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-17 15:57:02.100611",
+ "modified": "2025-12-30 15:42:12.413424",
  "modified_by": "Administrator",
  "module": "GSH Kreatao",
  "name": "Employment Certificate",
@@ -150,6 +167,8 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

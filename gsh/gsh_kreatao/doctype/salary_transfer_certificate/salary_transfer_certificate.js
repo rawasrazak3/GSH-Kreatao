@@ -24,7 +24,7 @@ frappe.ui.form.on("Salary Transfer Certificate", {
                     <p><b>Re Number: ${re_number}</b></p>
                     <p><b>Date: ${formatted_date}</b></p>
                     <p><b>To Whom It May Concern</b></p>
-                    <h3 style="text-align:center;"><u>Salary Transfer Certificate</u></h3>
+                    <h3 style="text-align:center; font-size:17px"><u>Salary Transfer Certificate</u></h3>
                 `);
             }
     
@@ -35,7 +35,7 @@ frappe.ui.form.on("Salary Transfer Certificate", {
                     <p>This is to certify that the above-mentioned employee is training in Gulf Medical Integrated Services 
                     as per the information provided above. 
                     Furthermore, as per his request we confirm that his monthly pay will be transferred to his 
-                    <b>${bank_name}</b> account number <b>${ac_no}</b>.<br>
+                    <b>${bank_name}</b> account number <b>${ac_no}</b>.</p>
                     <p>This document has been issued at the request of the employee. 
                     Please be advised that GMIS does not bear any responsibility, nor does it undertake any obligations, 
                     towards third parties in relation to this certification.</p><br>

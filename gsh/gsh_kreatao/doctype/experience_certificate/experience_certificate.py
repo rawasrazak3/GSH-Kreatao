@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class EmploymentCertificate1(Document):
+class ExperienceCertificate(Document):
 	pass

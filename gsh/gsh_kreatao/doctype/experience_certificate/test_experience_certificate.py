@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestEmploymentCertificate1(FrappeTestCase):
+class TestExperienceCertificate(FrappeTestCase):
 	pass
