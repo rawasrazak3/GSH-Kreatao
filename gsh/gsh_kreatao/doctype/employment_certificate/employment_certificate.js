@@ -19,23 +19,19 @@ frappe.ui.form.on("Employment Certificate", {
                 frm.set_value("content_1", `
                     <p><b>Re Number: ${re_number}</b></p>
                     <p><b>Date: ${formatted_date}</b></p>
-                    <p><b>To Whom It May Concern</b></p>
-                    <h3 style="text-align:center; font-size:17px"><u>Employment Certificate</u></h3>
+                    <p><b>To Whom It May Concern</b></p><br>
+                    <h2 style="text-align:center;"><u><b>Employment Certificate</b></u></h2>
                 `);
             }
     
             // Set default for content_2 if empty
             if (!frm.doc.content_2) {
                 frm.set_value("content_2", `
-                
                     <p><b>Gulf Specialized Hospital is a multispecialty hospital located in Muscat, Sultanate of Oman.
                      With more than 20 medical & surgical specialties including, orthopedic, neurology, cardiology, bariatric,
                       urology, general surgery, plastic surgery, gastroenterology & others, gsh aims to be the optimal healthcare choice.<b></p>
-
                     <p><b>This certificate has been Issued at the Request of the employee Without any liability or 
-                    Commitment on the Part of Gulf Medical Integrated Services towards other parties whatsoever.</b></p>
-
-                    <br><br><br>
+                    Commitment on the Part of Gulf Medical Integrated Services towards other parties whatsoever.</b></p><br><br><br>
                     <p><b>Zuhair Al Abduwani</b></p>
                     <p><b>CEO</b></p>
                 `);

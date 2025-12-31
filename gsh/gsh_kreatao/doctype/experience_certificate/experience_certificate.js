@@ -20,7 +20,7 @@ frappe.ui.form.on("Experience Certificate", {
                     <p><b>Re Number: ${re_number}</b></p>
                     <p><b>Date: ${formatted_date}</b></p>
                     <p><b>To Whom It May Concern</b></p>
-                    <h3 style="text-align:center;"><u>Experience Certificate</u></h3>
+                    <h2 style="text-align:center;"><u><b>Experience Certificate</b></u></h2>
                 `);
             }
     
@@ -31,8 +31,9 @@ frappe.ui.form.on("Experience Certificate", {
                     <p>Gulf Specialized Hospital, Al Maktabi building, Al Rumaila street Al Wattaya, Muscat - Sultanate of Oman</p><br>
                     <p>Gulf Specialized Hospital is a multispecialty hospital located in Muscat, Sultanate of Oman. With more than 20 medical & surgical specialties including,
                     Orthopedic, Neurology, Cardiology, Bariatric, Urology, General Surgery, Plastic Surgery, Gastroenterology & others, GSH aims to be the optimal healthcare choice.</p>
-                    <p><b>This certificate has been Issued at the Request of the employee Without any liability or Commitment on the Part of GULF Medical Integrated Services
-                    towards other parties whatsoever.<b></p><br><br><br>
+                    <p><b>This certificate has been Issued at the Request of the employee Without any liability or Commitment on the Part of Gulf Medical Integrated Services
+                    towards other parties whatsoever.</b></p><br>
+                   <p>Sincerely yours,</p><br><br>
                     <p><b>Zuhair Al Abduwani</b></p>
                     <p><b>CEO</b></p>
                 `);
