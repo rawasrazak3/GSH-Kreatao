@@ -37,7 +37,8 @@ frappe.ui.form.on("Salary Transfer Certificate", {
                     <b>${bank_name}</b> account number <b>${ac_no}</b>.</p>
                     <p>This document has been issued at the request of the employee. 
                     Please be advised that GMIS does not bear any responsibility, nor does it undertake any obligations, 
-                    towards third parties in relation to this certification.</p><br>
+                    towards third parties in relation to this certification.</p>
+                    <p>“The validity of this certificate shall be one month from the date of issue.”</p><br>
                     <p>Sincerely yours,</p><br><br>
                     <p><b>Zuhair Al Abduwani</b></p>
                     <p><b>CEO</b></p>

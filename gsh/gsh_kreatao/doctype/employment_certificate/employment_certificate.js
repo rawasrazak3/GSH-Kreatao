@@ -31,7 +31,8 @@ frappe.ui.form.on("Employment Certificate", {
                      With more than 20 medical & surgical specialties including, orthopedic, neurology, cardiology, bariatric,
                       urology, general surgery, plastic surgery, gastroenterology & others, gsh aims to be the optimal healthcare choice.<b></p>
                     <p><b>This certificate has been Issued at the Request of the employee Without any liability or 
-                    Commitment on the Part of Gulf Medical Integrated Services towards other parties whatsoever.</b></p><br><br><br>
+                    Commitment on the Part of Gulf Medical Integrated Services towards other parties whatsoever.</b></p>
+                    <p>“The validity of this certificate shall be one month from the date of issue.”</p><br><br><br>
                     <p><b>Zuhair Al Abduwani</b></p>
                     <p><b>CEO</b></p>
                 `);
