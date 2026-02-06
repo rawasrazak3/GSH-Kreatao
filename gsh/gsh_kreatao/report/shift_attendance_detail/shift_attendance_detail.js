@@ -81,11 +81,16 @@ frappe.query_reports["Shift Attendance Detail"] = {
 			const status_colors = {
 				"P": "#2ecc71",   // Green
 				"A": "#e74c3c",   // Red
-				"HD": "#f39c12",  // Orange
+				"HD/A": "#d35400",// Dark Orange
+				"HD/P": "#f39c12",// Yellow Orange
 				"WFH": "#3498db", // Blue
 				"L": "#9b59b6",   // Purple
 				"H": "#16a085",   // Teal
-				"WO": "#7f8c8d"   // Grey
+				"WO": "#7f8c8d",  // Grey
+				"OD": "#2980b9",   // Blue
+				"OS": "#8e44ad",   // Purple
+				"OD": "#1abc9c",   // Turquoise
+				"OS": "#000000",   // Black
 			};
 
 			const color = status_colors[data.status];
@@ -106,11 +111,14 @@ frappe.query_reports["Shift Attendance Detail"] = {
 			     style="margin-bottom:10px; padding:6px; border:1px solid #d1d8dd; font-size:12px;">
 				<span style="margin-left:10px; color:green;"><b>P</b></span> Present
 				<span style="margin-left:20px; color:red;"><b>A</b></span> Absent
-				<span style="margin-left:20px; color:orange;"><b>HD</b></span> Half Day
-				<span style="margin-left:20px; color:#0d6efd;"><b>WFH</b></span> Work From Home
+				<span style="margin-left:20px; color:orange;"><b>HD/A</b></span> Half Day/Other Half Absent
+				<span style="margin-left:20px; color:#f39c12;"><b>HD/P</b></span> Half Day/Other Half Present
+				<span style="margin-left:20px; color:#007bff;"><b>WFH</b></span> Work From Home
 				<span style="margin-left:20px; color:#6f42c1;"><b>L</b></span> On Leave
 				<span style="margin-left:20px; color:#198754;"><b>H</b></span> Holiday
 				<span style="margin-left:20px; color:#6c757d;"><b>WO</b></span> Weekly Off
+				<span style="margin-left:20px; color:#1abc9c;"><b>OD</b></span> On Duty
+				<span style="margin-left:20px; color:#000000;"><b>OS</b></span> Off Shift
 			</div>
 		`;
 
