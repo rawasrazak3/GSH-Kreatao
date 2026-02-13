@@ -167,13 +167,14 @@ doc_events = {
 # Scheduled Tasks
 # ---------------
 
-scheduler_events = {
-    "cron": {
-        "59 23 * * *": [
-            "gsh.gsh_kreatao.custom_script.mark_attendance.schedule_mark_attendance"
-        ]
-    }
-}
+# scheduler_events = {
+#     "cron": {
+#         "59 23 * * *": [
+#             "gsh.gsh_kreatao.custom_script.mark_attendance.schedule_mark_attendance"
+#         ]
+#     }
+# }
+
 # scheduler_events = {
 # 	"all": [
 # 		"gsh.tasks.all"
