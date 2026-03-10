@@ -1,7 +1,6 @@
-// Copyright (c) 2026, Kreatao - thinkNXG and contributors
-// For license information, please see license.txt
 
 frappe.query_reports["Shift Attendance Detail"] = {
+
 	"filters": [
 		{
 			fieldname: "from_date",

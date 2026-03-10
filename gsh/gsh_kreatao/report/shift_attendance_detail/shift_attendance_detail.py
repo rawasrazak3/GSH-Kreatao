@@ -678,7 +678,6 @@ def get_query(filters):
 
     return query
 
-
 def update_data(data, filters):
     for d in data:
 
