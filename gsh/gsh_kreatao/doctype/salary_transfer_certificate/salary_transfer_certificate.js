@@ -23,25 +23,27 @@ frappe.ui.form.on("Salary Transfer Certificate", {
                 frm.set_value("content_1", `
                     <p><b>Re Number: ${re_number}</b></p>
                     <p><b>Date: ${formatted_date}</b></p>
-                    <p><b>To Whom It May Concern</b></p>
-                    <h2 style="text-align:center;"><u><b>Salary Transfer Certificate</b></u></h2>
+                    <br><br>
+                    <h4 style="text-align:center;"><u><b>SALARY TRANSFER CERTIFICATE</b></u></h4>
                 `);
             }
     
             // Set default for content_2 if empty
             if (!frm.doc.content_2) {
                 frm.set_value("content_2", `
-                    <p>This is to certify that the above-mentioned employee is training in Gulf Medical Integrated Services 
-                    as per the information provided above. 
-                    Furthermore, as per his request we confirm that his monthly pay will be transferred to his 
-                    <b>${bank_name}</b> account number <b>${ac_no}</b>.</p>
-                    <p>This document has been issued at the request of the employee. 
-                    Please be advised that GMIS does not bear any responsibility, nor does it undertake any obligations, 
-                    towards third parties in relation to this certification.</p>
-                    <p>“The validity of this certificate shall be one month from the date of issue.”</p><br>
-                    <p>Sincerely yours,</p><br><br>
-                    <p><b>Zuhair Al Abduwani</b></p>
-                    <p><b>CEO</b></p>
+                    <div style="text-align: justify;">
+                        <p>This is to certify that the above-mentioned employee is working in Gulf Medical Integrated Services as per the information provided above. 
+                        Furthermore, as per the request we confirm that his/her monthly pay will be transferred to the above-mentioned bank account.</p>
+
+                        <p>This certificate has been issued at the request of the employee without any liability or commitment on the part of Gulf Medical 
+                        Integrated Services L.L.C toward any third party whatsoever.</p>
+
+                        <p><b>“The validity of the certificate shall be one month from the date of issue.”</b></p><br><br>
+
+                        <p><b>Your Sincerely,</b></p><br><br>
+
+                        <p><b>Zuhair Al Abduwani<br>CEO</b></p>
+                    </div>
                 `);
             }
         }

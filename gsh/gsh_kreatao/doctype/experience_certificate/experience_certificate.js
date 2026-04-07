@@ -18,24 +18,28 @@ frappe.ui.form.on("Experience Certificate", {
             if (!frm.doc.content_1) {
                 frm.set_value("content_1", `
                     <p><b>Re Number: ${re_number}</b></p>
-                    <p><b>Date: ${formatted_date}</b></p>
-                    <p><b>To Whom It May Concern</b></p>
-                    <h2 style="text-align:center;"><u><b>Experience Certificate</b></u></h2>
+                    <p><b>Date: ${formatted_date}</b></p><br><br>
+                    <h4 style="text-align:center;"><u><b>EXPERIENCE CERTIFICATE</b></u></h4>
                 `);
             }
     
             // Set default for content_2 if empty
             if (!frm.doc.content_2) {
                 frm.set_value("content_2", `
-                    <p><b>Office Address:</b></p>
-                    <p>Gulf Specialized Hospital, Al Maktabi building, Al Rumaila street Al Wattaya, Muscat - Sultanate of Oman</p><br>
-                    <p>Gulf Specialized Hospital is a multispecialty hospital located in Muscat, Sultanate of Oman. With more than 20 medical & surgical specialties including,
-                    Orthopedic, Neurology, Cardiology, Bariatric, Urology, General Surgery, Plastic Surgery, Gastroenterology & others, GSH aims to be the optimal healthcare choice.</p>
-                    <p><b>This certificate has been Issued at the Request of the employee Without any liability or Commitment on the Part of Gulf Medical Integrated Services
-                    towards other parties whatsoever.</b></p><br>
-                   <p>Sincerely yours,</p><br><br>
-                    <p><b>Zuhair Al Abduwani</b></p>
-                    <p><b>CEO</b></p>
+                    <div style="text-align: justify;">
+                        <p>This is to certify that the above-mentioned employee was employed with Gulf Specialized Hospital, in the capacity of the position mentioned above. 
+                        During the above-mentioned period, he/she carried out assigned duties and responsibilities in accordance with the policies and standards of the organization.</p>
+
+                        <p><b>Office Address:</b> Gulf Specialized Hospital, Maktabi Building, Al Rumaila street Al Wattaya, Muscat-Sultanate of Oman</p>
+
+                        <p>Gulf Specialized Hospital is a multispecialty hospital located in Muscat, Sultanate of Oman. With more than 20 medical & surgical specialties including, 
+                        orthopedic, neurology, cardiology, bariatric, urology, general surgery, plastic surgery, gastroenterology & others, GSH aims to be the optimal healthcare choice.</p>
+
+                        <p>This certificate is issued at the request of the employee without any liability or commitment on the part of Gulf Medical Integrated Services L.L.C toward any third party whatsoever.</p><br><br>
+
+                        <p><b>Your Sincerely,</b></p><br><br>
+                        <p><b>Zuhair Al Abduwani<br>CEO</b></p>
+                    </div>
                 `);
             }
         }

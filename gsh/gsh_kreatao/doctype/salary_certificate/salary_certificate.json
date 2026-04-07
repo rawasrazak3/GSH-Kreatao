@@ -6,14 +6,23 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "health_facility",
+  "sponsers_name",
+  "location_of_institution",
+  "state",
+  "section_break_pqxh",
   "employee",
   "employee_name",
   "designation",
-  "column_break_ydbr",
-  "posting_date",
   "nationality",
   "passport_number",
+  "civil_id_number",
   "residence_id",
+  "column_break_bxao",
+  "posting_date",
+  "start_date",
+  "end_date",
+  "approved_on",
   "section_break_vnpt",
   "moh_oman_licence",
   "tenure",
@@ -42,10 +51,6 @@
    "fieldname": "designation",
    "fieldtype": "Data",
    "label": "Designation"
-  },
-  {
-   "fieldname": "column_break_ydbr",
-   "fieldtype": "Column Break"
   },
   {
    "fetch_from": "employee.custom_country_of_origin",
@@ -120,16 +125,72 @@
    "search_index": 1
   },
   {
+   "fetch_from": "employee.custom_civil_id_number",
+   "fieldname": "civil_id_number",
+   "fieldtype": "Data",
+   "label": "Civil ID Number"
+  },
+  {
+   "fieldname": "health_facility",
+   "fieldtype": "Link",
+   "label": "Name of Health Facility",
+   "options": "Company"
+  },
+  {
+   "default": "Gulf Integrated Medical Services Company LLC",
+   "fieldname": "sponsers_name",
+   "fieldtype": "Data",
+   "label": "Sponser's Name"
+  },
+  {
+   "fieldname": "section_break_pqxh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "Muscat",
+   "fieldname": "location_of_institution",
+   "fieldtype": "Data",
+   "label": "Location of the institution/governorate"
+  },
+  {
+   "default": "Matrah",
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State"
+  },
+  {
+   "fieldname": "column_break_bxao",
+   "fieldtype": "Column Break"
+  },
+  {
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
    "label": "Posting Date"
+  },
+  {
+   "fetch_from": "employee.date_of_joining",
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "approved_on",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Approved On",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-30 16:11:00.046152",
+ "modified": "2026-04-07 22:18:56.210269",
  "modified_by": "Administrator",
  "module": "GSH Kreatao",
  "name": "Salary Certificate",
