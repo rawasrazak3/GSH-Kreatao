@@ -16,6 +16,7 @@
   "designation",
   "nationality",
   "passport_number",
+  "civil_id_number",
   "start_date",
   "end_date",
   "approved_on",
@@ -149,13 +150,19 @@
    "hidden": 1,
    "label": "Approved On",
    "read_only": 1
+  },
+  {
+   "fetch_from": "employee.custom_civil_id_number",
+   "fieldname": "civil_id_number",
+   "fieldtype": "Data",
+   "label": "Civil ID Number"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-01-07 10:29:34.434038",
+ "modified": "2026-04-07 20:56:48.585762",
  "modified_by": "Administrator",
  "module": "GSH Kreatao",
  "name": "Employment Certificate",

@@ -18,23 +18,30 @@ frappe.ui.form.on("Employment Certificate", {
             if (!frm.doc.content_1) {
                 frm.set_value("content_1", `
                     <p><b>Re Number: ${re_number}</b></p>
-                    <p><b>Date: ${formatted_date}</b></p>
-                    <p><b>To Whom It May Concern</b></p><br>
-                    <h2 style="text-align:center;"><u><b>Employment Certificate</b></u></h2>
+                    <p><b>Date: ${formatted_date}</b></p><br><br>
+                    <h4 style="text-align:center;"><u><b>EMPLOYMENT CERTIFICATE</b></u></h4>
                 `);
             }
     
             // Set default for content_2 if empty
             if (!frm.doc.content_2) {
                 frm.set_value("content_2", `
-                    <p><b>Gulf Specialized Hospital is a multispecialty hospital located in Muscat, Sultanate of Oman.
-                     With more than 20 medical & surgical specialties including, orthopedic, neurology, cardiology, bariatric,
-                      urology, general surgery, plastic surgery, gastroenterology & others, gsh aims to be the optimal healthcare choice.<b></p>
-                    <p><b>This certificate has been Issued at the Request of the employee Without any liability or 
-                    Commitment on the Part of Gulf Medical Integrated Services towards other parties whatsoever.</b></p>
-                    <p>“The validity of this certificate shall be one month from the date of issue.”</p><br><br><br>
-                    <p><b>Zuhair Al Abduwani</b></p>
-                    <p><b>CEO</b></p>
+                    <div style="text-align: justify;">
+                        <p>This is to certify that the above-mentioned employee is employed with Gulf Specialized Hospital, in the position mentioned above.</p>
+
+                        <p>Gulf Specialized Hospital is a multispecialty hospital located in Muscat, Sultanate of Oman. With more than 20 medical & surgical 
+                        specialties including, orthopedic, neurology, cardiology, bariatric, urology, general surgery, plastic surgery, gastroenterology & 
+                        others, GSH aims to be the optimal healthcare choice.</p>
+
+                        <p>This certificate has been issued at the request of the employee without any liability or commitment on the part of Gulf Medical 
+                        Integrated Services L.L.C toward any third party whatsoever.</p>
+
+                        <p><b>“The validity of the certificate shall be one month from the date of issue.”</b></p><br><br>
+
+                        <p><b>Your Sincerely,</b></p><br><br>
+
+                        <p><b>Zuhair Al Abduwani<br>CEO</b></p>
+                    </div>
                 `);
             }
         }
