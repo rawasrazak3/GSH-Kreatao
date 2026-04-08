@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2025-09-16 13:36:45.321991",
+ "creation": "2025-12-29 00:04:23.987422",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
@@ -10,36 +10,32 @@
   "sponsers_name",
   "location_of_institution",
   "state",
-  "section_break_pqxh",
+  "section_break_vjtv",
   "employee",
   "employee_name",
-  "designation",
+  "position",
   "nationality",
   "passport_number",
   "civil_id_number",
-  "residence_id",
-  "column_break_bxao",
+  "resident_card_number",
+  "tenure_date",
+  "salary",
+  "column_break_hnxu",
   "posting_date",
   "start_date",
   "end_date",
-  "approved_on",
-  "section_break_vnpt",
-  "moh_oman_licence",
-  "tenure",
-  "salary",
-  "naming_series",
-  "section_break_viss",
+  "section_break_mlcz",
+  "bank_name",
+  "ac_no",
+  "section_break_iodl",
   "content_1",
+  "section_break_mmyy",
   "content_2",
+  "section_break_dsvq",
+  "naming_series",
   "amended_from"
  ],
  "fields": [
-  {
-   "fieldname": "employee",
-   "fieldtype": "Link",
-   "label": "Employee",
-   "options": "Employee"
-  },
   {
    "fetch_from": "employee.employee_name",
    "fieldname": "employee_name",
@@ -47,16 +43,97 @@
    "label": "Employee Name"
   },
   {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
    "fetch_from": "employee.designation",
-   "fieldname": "designation",
+   "fieldname": "position",
    "fieldtype": "Data",
-   "label": "Designation"
+   "label": "Position"
   },
   {
    "fetch_from": "employee.custom_country_of_origin",
    "fieldname": "nationality",
    "fieldtype": "Data",
    "label": "Nationality"
+  },
+  {
+   "fetch_from": "employee.custom_civil_id_number",
+   "fieldname": "resident_card_number",
+   "fieldtype": "Data",
+   "label": "Resident Card Number"
+  },
+  {
+   "fetch_from": "employee.date_of_joining",
+   "fieldname": "tenure_date",
+   "fieldtype": "Date",
+   "label": "Tenure Date",
+   "options": "employee"
+  },
+  {
+   "fieldname": "section_break_dsvq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "GMIS/.YYYY./HR/.####.",
+   "print_hide": 1,
+   "report_hide": 1
+  },
+  {
+   "fieldname": "section_break_iodl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "content_1",
+   "fieldtype": "Text Editor",
+   "label": "Content1"
+  },
+  {
+   "fieldname": "section_break_mmyy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "content_2",
+   "fieldtype": "Text Editor",
+   "label": "Content2"
+  },
+  {
+   "fieldname": "section_break_mlcz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "employee.bank_name",
+   "fieldname": "bank_name",
+   "fieldtype": "Data",
+   "label": "Bank Name"
+  },
+  {
+   "fetch_from": "employee.bank_ac_no",
+   "fieldname": "ac_no",
+   "fieldtype": "Data",
+   "label": "A/C No."
+  },
+  {
+   "fieldname": "salary",
+   "fieldtype": "Currency",
+   "label": "Salary"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Salary Transfer Certificate",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   },
   {
    "fetch_from": "employee.passport_number",
@@ -66,100 +143,12 @@
   },
   {
    "fetch_from": "employee.custom_civil_id_number",
-   "fieldname": "residence_id",
-   "fieldtype": "Data",
-   "label": "Residence ID"
-  },
-  {
-   "fieldname": "section_break_vnpt",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fetch_from": "employee.custom_moh_licence_number",
-   "fieldname": "moh_oman_licence",
-   "fieldtype": "Data",
-   "label": "MOH Oman licence"
-  },
-  {
-   "fetch_from": "employee.date_of_joining",
-   "fieldname": "tenure",
-   "fieldtype": "Date",
-   "label": "Tenure"
-  },
-  {
-   "fieldname": "salary",
-   "fieldtype": "Currency",
-   "label": "Salary"
-  },
-  {
-   "fieldname": "section_break_viss",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "content_1",
-   "fieldtype": "Text Editor",
-   "label": "Content 1"
-  },
-  {
-   "fieldname": "content_2",
-   "fieldtype": "Text Editor",
-   "label": "Content 2"
-  },
-  {
-   "fieldname": "naming_series",
-   "fieldtype": "Data",
-   "hidden": 1,
-   "label": "Naming Series",
-   "options": "GMIS/.YYYY./HR/.###.\n",
-   "print_hide": 1,
-   "report_hide": 1
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Salary Certificate",
-   "print_hide": 1,
-   "read_only": 1,
-   "search_index": 1
-  },
-  {
-   "fetch_from": "employee.custom_civil_id_number",
    "fieldname": "civil_id_number",
    "fieldtype": "Data",
    "label": "Civil ID Number"
   },
   {
-   "fieldname": "health_facility",
-   "fieldtype": "Link",
-   "label": "Name of Health Facility",
-   "options": "Company"
-  },
-  {
-   "default": "Gulf Integrated Medical Services Company LLC",
-   "fieldname": "sponsers_name",
-   "fieldtype": "Data",
-   "label": "Sponser's Name"
-  },
-  {
-   "fieldname": "section_break_pqxh",
-   "fieldtype": "Section Break"
-  },
-  {
-   "default": "Muscat",
-   "fieldname": "location_of_institution",
-   "fieldtype": "Data",
-   "label": "Location of the institution/governorate"
-  },
-  {
-   "default": "Matrah",
-   "fieldname": "state",
-   "fieldtype": "Data",
-   "label": "State"
-  },
-  {
-   "fieldname": "column_break_bxao",
+   "fieldname": "column_break_hnxu",
    "fieldtype": "Column Break"
   },
   {
@@ -180,20 +169,42 @@
    "label": "End Date"
   },
   {
-   "fieldname": "approved_on",
-   "fieldtype": "Date",
-   "hidden": 1,
-   "label": "Approved On",
-   "read_only": 1
+   "fieldname": "health_facility",
+   "fieldtype": "Link",
+   "label": "Name of Health Facility",
+   "options": "Company"
+  },
+  {
+   "default": "Gulf Integrated Medical Services Company LLC",
+   "fieldname": "sponsers_name",
+   "fieldtype": "Data",
+   "label": "Sponser's Name"
+  },
+  {
+   "default": "Muscat",
+   "fieldname": "location_of_institution",
+   "fieldtype": "Data",
+   "label": "Location of the institution/governorate"
+  },
+  {
+   "default": "Matrah",
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State"
+  },
+  {
+   "fieldname": "section_break_vjtv",
+   "fieldtype": "Section Break"
   }
  ],
+ "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-04-07 22:18:56.210269",
+ "modified": "2026-04-07 22:42:38.516057",
  "modified_by": "Administrator",
  "module": "GSH Kreatao",
- "name": "Salary Certificate",
+ "name": "Salary Transfer Certificate",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [

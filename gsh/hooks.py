@@ -167,13 +167,14 @@ doc_events = {
 # Scheduled Tasks
 # ---------------
 
-scheduler_events = {
-    "cron": {
-        "59 23 * * *": [
-            "gsh.gsh_kreatao.custom_script.mark_attendance.schedule_mark_attendance"
-        ]
-    }
-}
+# scheduler_events = {
+#     "cron": {
+#         "59 23 * * *": [
+#             "gsh.gsh_kreatao.custom_script.mark_attendance.schedule_mark_attendance"
+#         ]
+#     }
+# }
+
 # scheduler_events = {
 # 	"all": [
 # 		"gsh.tasks.all"
@@ -287,6 +288,9 @@ fixtures=[
                     "Employee-custom_over_time_rate",
                     "Employee-custom_late_entry_rate",
                     "Attendance Request-custom_overtime_hours",
+                    "Shift Type-custom_split_shift",
+                    "Shift Type-custom_break_start_time",
+                    "Shift Type-custom_break_end_time"
                     
                  ]
             ]

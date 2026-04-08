@@ -1,7 +1,8 @@
 // Copyright (c) 2025, Rawas and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Salary Certificate", {
+
+frappe.ui.form.on("Salary Transfer Certificate", {
 	refresh(frm) {
 
 	},
@@ -14,13 +15,16 @@ frappe.ui.form.on("Salary Certificate", {
             // Format date to DD/MM/YYYY
             let parts = certificate_date.split("-");
             let formatted_date = parts[2] + "/" + parts[1] + "/" + parts[0];
+            // Dynamic bank details
+            let bank_name = frm.doc.bank_name || "____________";
+            let ac_no = frm.doc.ac_no || "____________";
             // Set default for content_1 if empty
             if (!frm.doc.content_1) {
                 frm.set_value("content_1", `
                     <p><b>Re Number: ${re_number}</b></p>
                     <p><b>Date: ${formatted_date}</b></p>
                     <br><br>
-                    <h4 style="text-align:center;"><u><b>SALARY CERTIFICATE</b></u></h4>
+                    <h4 style="text-align:center;"><u><b>SALARY TRANSFER CERTIFICATE</b></u></h4>
                 `);
             }
     
@@ -28,16 +32,11 @@ frappe.ui.form.on("Salary Certificate", {
             if (!frm.doc.content_2) {
                 frm.set_value("content_2", `
                     <div style="text-align: justify;">
-                        <p>This is to certify that the above-mentioned employee is employed with Gulf Specialized Hospital, in the position mentioned above.</p>
+                        <p>This is to certify that the above-mentioned employee is working in Gulf Medical Integrated Services as per the information provided above. 
+                        Furthermore, as per the request we confirm that his/her monthly pay will be transferred to the above-mentioned bank account.</p>
 
-                        <p><b>Office Address:</b>Gulf Specialized Hospital, Maktabi Building, Al Rumaila street Al Wattaya, Muscat-Sultanate of Oman</p>
-
-                        <p>Gulf Specialized Hospital is a multispecialty hospital located in Muscat, Sultanate of Oman. With more than 20 medical & 
-                        surgical specialties including, orthopedic, neurology, cardiology, bariatric, urology, general surgery, plastic surgery, 
-                        gastroenterology & others, GSH aims to be the optimal healthcare choice.</p>
-
-                        <p>This certificate has been issued at the request of the employee without any liability or Commitment on the Part of Gulf Medical 
-                        Integrated Services towards other parties whatsoever.</p>
+                        <p>This certificate has been issued at the request of the employee without any liability or commitment on the part of Gulf Medical 
+                        Integrated Services L.L.C toward any third party whatsoever.</p>
 
                         <p><b>“The validity of the certificate shall be one month from the date of issue.”</b></p><br><br>
 
@@ -54,7 +53,7 @@ frappe.ui.form.on("Salary Certificate", {
         console.log("Employee selected:", frm.doc.employee);
         
         frappe.call({
-            method: 'gsh.gsh_kreatao.doctype.salary_certificate.salary_certificate.get_salary_detail',
+            method: 'gsh.gsh_kreatao.doctype.salary_transfer_certificate.salary_transfer_certificate.get_salary_detail',
             args: {
                 employee: frm.doc.employee
             },

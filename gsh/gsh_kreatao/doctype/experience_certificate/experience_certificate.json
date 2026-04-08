@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2025-09-16 13:36:45.321991",
+ "creation": "2025-09-16 13:51:54.432046",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
@@ -10,7 +10,7 @@
   "sponsers_name",
   "location_of_institution",
   "state",
-  "section_break_pqxh",
+  "section_break_iskq",
   "employee",
   "employee_name",
   "designation",
@@ -18,17 +18,17 @@
   "passport_number",
   "civil_id_number",
   "residence_id",
-  "column_break_bxao",
+  "column_break_lyxu",
   "posting_date",
   "start_date",
   "end_date",
   "approved_on",
-  "section_break_vnpt",
+  "section_break_udra",
   "moh_oman_licence",
   "tenure",
-  "salary",
+  "staff_number",
   "naming_series",
-  "section_break_viss",
+  "section_break_hvqs",
   "content_1",
   "content_2",
   "amended_from"
@@ -53,6 +53,10 @@
    "label": "Designation"
   },
   {
+   "fieldname": "column_break_lyxu",
+   "fieldtype": "Column Break"
+  },
+  {
    "fetch_from": "employee.custom_country_of_origin",
    "fieldname": "nationality",
    "fieldtype": "Data",
@@ -71,7 +75,7 @@
    "label": "Residence ID"
   },
   {
-   "fieldname": "section_break_vnpt",
+   "fieldname": "section_break_udra",
    "fieldtype": "Section Break"
   },
   {
@@ -87,12 +91,22 @@
    "label": "Tenure"
   },
   {
-   "fieldname": "salary",
-   "fieldtype": "Currency",
-   "label": "Salary"
+   "fetch_from": "employee.attendance_device_id",
+   "fieldname": "staff_number",
+   "fieldtype": "Data",
+   "label": "Staff Number"
   },
   {
-   "fieldname": "section_break_viss",
+   "fieldname": "naming_series",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "E_C-.YY.-.####.",
+   "print_hide": 1,
+   "report_hide": 1
+  },
+  {
+   "fieldname": "section_break_hvqs",
    "fieldtype": "Section Break"
   },
   {
@@ -106,23 +120,20 @@
    "label": "Content 2"
   },
   {
-   "fieldname": "naming_series",
-   "fieldtype": "Data",
-   "hidden": 1,
-   "label": "Naming Series",
-   "options": "GMIS/.YYYY./HR/.###.\n",
-   "print_hide": 1,
-   "report_hide": 1
-  },
-  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Salary Certificate",
+   "options": "Experience Certificate",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
   },
   {
    "fetch_from": "employee.custom_civil_id_number",
@@ -143,10 +154,6 @@
    "label": "Sponser's Name"
   },
   {
-   "fieldname": "section_break_pqxh",
-   "fieldtype": "Section Break"
-  },
-  {
    "default": "Muscat",
    "fieldname": "location_of_institution",
    "fieldtype": "Data",
@@ -159,14 +166,8 @@
    "label": "State"
   },
   {
-   "fieldname": "column_break_bxao",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "Today",
-   "fieldname": "posting_date",
-   "fieldtype": "Date",
-   "label": "Posting Date"
+   "fieldname": "section_break_iskq",
+   "fieldtype": "Section Break"
   },
   {
    "fetch_from": "employee.date_of_joining",
@@ -190,10 +191,10 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-04-07 22:18:56.210269",
+ "modified": "2026-04-07 21:24:20.752648",
  "modified_by": "Administrator",
  "module": "GSH Kreatao",
- "name": "Salary Certificate",
+ "name": "Experience Certificate",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [

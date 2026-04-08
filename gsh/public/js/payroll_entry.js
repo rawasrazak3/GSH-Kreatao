@@ -142,7 +142,10 @@ function calculate_overtime_and_late_entry(slip) {
 
 frappe.ui.form.on('Payroll Entry', {
     refresh: function(frm) {
+
         frm.add_custom_button(__('Calculate Saturday Allowance Deduction'), function() {
+        // frm.add_custom_button(__('Get Overtime Allowance Deduction'), function() {
+
             calculate_saturday_allowance_for_all_salary_slips(frm);
         });
     }
@@ -177,7 +180,10 @@ function process_salary_slips_sequentially(salary_slips, index, frm) {
             process_salary_slips_sequentially(salary_slips, index + 1, frm);
         });
     } else {
+
         frappe.msgprint(__('Saturday Allowance Deduction has been updated for all salary slips.'));
+        // frappe.msgprint(__('Overtime Deduction has been updated for all salary slips.'));
+
         frm.reload_doc();
     }
 }
@@ -221,16 +227,22 @@ function calculate_saturday_allowance_deduction(slip) {
                         let total_working_days = salary_slip.total_working_days;
 
                         let overtime_allowance = earnings.find(e => e.salary_component === 'Saturday Fixed Overtime Allowance');
+                        // let overtime_allowance = earnings.find(e => e.salary_component === 'Overtime');
+
                         if (overtime_allowance) {
                             let per_day_amount = overtime_allowance.default_amount / total_working_days;
                             let deduction_amount = per_day_amount * leave_days;
 
                             let deduction_entry = deductions.find(d => d.salary_component === 'Saturday Allowance Deduction');
+                            // let deduction_entry = deductions.find(d => d.salary_component === 'Overtime Allowance Deduction');
+
                             if (deduction_entry) {
                                 deduction_entry.amount = deduction_amount;
                             } else {
                                 deductions.push({
+
                                     salary_component: 'Saturday Allowance Deduction',
+                                    // salary_component: 'Overtime Allowance Deduction',
                                     amount: deduction_amount
                                 });
                             }
