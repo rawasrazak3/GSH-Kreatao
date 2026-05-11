@@ -2,8 +2,8 @@ import frappe
 from frappe.utils import getdate, nowdate
 from datetime import date, timedelta
 
-SHIFT_TYPES_TO_ADD = ["Weekly Off", "Public Holiday", "On Call Shift", "On Call Day", "On Call Night"]
-SHIFT_TYPES_WEEKLY_OFF = ["Weekly Off", "On Call Shift", "On Call Day", "On Call Night"]
+SHIFT_TYPES_TO_ADD = ["Weekly Off", "Public Holiday", "On Call Shift", "On Call Day", "On Call Night","Night Off"]
+SHIFT_TYPES_WEEKLY_OFF = ["Weekly Off", "On Call Shift", "On Call Day", "On Call Night","Night Off"]
 
 def add_shift_assignment_date_to_holiday_list(doc, method):
     if doc.shift_type not in SHIFT_TYPES_TO_ADD:
@@ -64,7 +64,7 @@ def add_shift_assignment_date_to_holiday_list(doc, method):
     holiday_list.save()
 
 
-SHIFT_TYPES_TO_REMOVE = ["Weekly Off","On Call Shift", "On Call Day", "On Call Night"]
+SHIFT_TYPES_TO_REMOVE = ["Weekly Off","On Call Shift", "On Call Day", "On Call Night", "Night Off"]
 
 def remove_shift_assignment_dates_from_holiday_list(doc, method):
     if doc.shift_type not in SHIFT_TYPES_TO_REMOVE:
